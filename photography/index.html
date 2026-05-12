@@ -38,7 +38,9 @@
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
+      cursor: auto;
+      /* Enable 3D perspective on the whole page */
+      perspective: 1200px;
     }
 
     /* ========== CUSTOM CURSOR (Desktop Only) ========== */
@@ -86,17 +88,18 @@
       }
 
       body {
-        cursor: none;
+        cursor: auto;
       }
 
       a, button, .clickable {
-        cursor: none;
+        cursor: auto;
       }
     }
 
     @media (max-width: 1023px), (hover: none) {
       body {
         cursor: auto;
+        perspective: none;
       }
       a, button, .clickable {
         cursor: pointer;
@@ -130,6 +133,8 @@
 
     .section {
       padding: 4rem 0;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
     }
 
     @media (min-width: 768px) {
@@ -154,12 +159,14 @@
       background: transparent;
       color: var(--text);
       transition: all 0.3s ease;
+      transform-style: preserve-3d;
     }
 
     .btn:hover {
       background: var(--gold);
       color: var(--bg);
       border-color: var(--gold);
+      transform: translateZ(20px);
     }
 
     .btn-primary {
@@ -171,6 +178,7 @@
     .btn-primary:hover {
       background: var(--gold2);
       border-color: var(--gold2);
+      transform: translateZ(25px);
     }
 
     /* ========== NAVIGATION ========== */
@@ -203,6 +211,11 @@
       letter-spacing: 0.2em;
       color: var(--text);
       text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-logo:hover {
+      transform: translateZ(15px);
     }
 
     @media (min-width: 768px) {
@@ -226,8 +239,9 @@
       text-transform: uppercase;
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.3s ease;
       position: relative;
+      display: inline-block;
     }
 
     .nav-links a::after {
@@ -243,6 +257,7 @@
 
     .nav-links a:hover {
       color: var(--gold);
+      transform: translateZ(10px);
     }
 
     .nav-links a:hover::after {
@@ -447,7 +462,7 @@
       justify-content: center;
     }
 
-    /* ========== HERO SECTION ========== */
+    /* ========== HERO SECTION - ENHANCED 3D ========== */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -455,12 +470,14 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      transform-style: preserve-3d;
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
       z-index: 0;
+      transform-style: preserve-3d;
     }
 
     .hero-bg img {
@@ -468,6 +485,8 @@
       height: 100%;
       object-fit: cover;
       filter: brightness(0.4);
+      transition: transform 0.3s ease-out;
+      will-change: transform;
     }
 
     .hero-overlay {
@@ -487,6 +506,8 @@
       text-align: center;
       padding: 2rem 1rem;
       max-width: 900px;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease-out;
     }
 
     .hero-subtitle {
@@ -496,6 +517,8 @@
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 1.5rem;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
     }
 
     @media (min-width: 768px) {
@@ -506,10 +529,13 @@
       font-size: clamp(2.5rem, 10vw, 7rem);
       line-height: 0.95;
       margin-bottom: 1.5rem;
+      transform-style: preserve-3d;
     }
 
     .hero-title span {
       display: block;
+      transition: transform 0.4s ease;
+      transform-style: preserve-3d;
     }
 
     .hero-title .outline {
@@ -581,6 +607,8 @@
     .section-header {
       text-align: center;
       margin-bottom: 3rem;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
     }
 
     @media (min-width: 768px) {
@@ -609,6 +637,8 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      transform-style: preserve-3d;
+      perspective: 800px;
     }
 
     .gallery-scroll::-webkit-scrollbar {
@@ -625,6 +655,8 @@
       position: relative;
       aspect-ratio: 3/4;
       overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
     }
 
     @media (min-width: 480px) {
@@ -665,12 +697,13 @@
       font-size: 1.25rem;
     }
 
-    /* Desktop Gallery - 3D Parallax */
+    /* Desktop Gallery - Enhanced 3D Parallax */
     .gallery-3d {
       display: none;
-      perspective: 1000px;
+      perspective: 1200px;
       height: 600px;
       position: relative;
+      transform-style: preserve-3d;
     }
 
     @media (min-width: 1024px) {
@@ -694,12 +727,13 @@
       position: relative;
       overflow: hidden;
       transform-style: preserve-3d;
-      transition: transform 0.5s ease;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
       cursor: pointer;
     }
 
     .gallery-card:hover {
-      transform: scale(1.02) translateZ(30px);
+      transform: scale(1.05) translateZ(40px);
+      box-shadow: 0 30px 60px rgba(201, 162, 39, 0.2);
     }
 
     .gallery-card img {
@@ -710,7 +744,7 @@
     }
 
     .gallery-card:hover img {
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     .gallery-card .info {
@@ -723,6 +757,7 @@
       padding: 2rem;
       opacity: 0;
       transition: opacity 0.4s ease;
+      transform: translateZ(20px);
     }
 
     .gallery-card:hover .info {
@@ -770,19 +805,23 @@
       color: var(--text);
       cursor: pointer;
       transition: all 0.3s ease;
+      transform-style: preserve-3d;
     }
 
     .gallery-nav button:hover {
       background: var(--gold);
       color: var(--bg);
       border-color: var(--gold);
+      transform: translateZ(15px);
     }
 
-    /* ========== REEL SECTION ========== */
+    /* ========== REEL SECTION - ENHANCED 3D ========== */
     .reel {
       padding: 3rem 0;
       overflow: hidden;
       background: var(--bg2);
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
 
     @media (min-width: 768px) {
@@ -791,16 +830,18 @@
 
     .reel-track {
       display: flex;
-      animation: scroll 30s linear infinite;
+      animation: scroll3D 30s linear infinite;
+      transform-style: preserve-3d;
     }
 
     .reel-track:hover {
       animation-play-state: paused;
     }
 
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    @keyframes scroll3D {
+      0% { transform: translateX(0) rotateY(0deg); }
+      50% { transform: translateX(-25%) rotateY(2deg); }
+      100% { transform: translateX(-50%) rotateY(0deg); }
     }
 
     .reel-item {
@@ -809,6 +850,8 @@
       display: flex;
       align-items: center;
       gap: 1.5rem;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
     }
 
     @media (min-width: 768px) {
@@ -822,12 +865,14 @@
       white-space: nowrap;
       color: transparent;
       -webkit-text-stroke: 1px var(--text);
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      transform-style: preserve-3d;
     }
 
     .reel-item:hover span {
       color: var(--gold);
       -webkit-text-stroke-color: var(--gold);
+      transform: translateZ(30px) scale(1.05);
     }
 
     .reel-item .dot {
@@ -835,15 +880,21 @@
       height: 8px;
       background: var(--gold);
       transform: rotate(45deg);
+      transition: transform 0.4s ease;
+    }
+
+    .reel-item:hover .dot {
+      transform: rotate(45deg) translateZ(20px) scale(1.5);
     }
 
     @media (min-width: 768px) {
       .reel-item .dot { width: 12px; height: 12px; }
     }
 
-    /* ========== ABOUT SECTION ========== */
+    /* ========== ABOUT SECTION - ENHANCED 3D ========== */
     .about {
       padding: 4rem 0;
+      transform-style: preserve-3d;
     }
 
     @media (min-width: 768px) {
@@ -854,6 +905,7 @@
       display: grid;
       gap: 3rem;
       align-items: center;
+      transform-style: preserve-3d;
     }
 
     @media (min-width: 1024px) {
@@ -867,12 +919,23 @@
       position: relative;
       aspect-ratio: 4/5;
       overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .about-image:hover {
+      transform: rotateY(-5deg) rotateX(3deg);
     }
 
     .about-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .about-image:hover img {
+      transform: scale(1.05);
     }
 
     .about-image::before {
@@ -881,10 +944,19 @@
       inset: 1rem;
       border: 1px solid var(--border-gold);
       pointer-events: none;
+      z-index: 1;
+      transform: translateZ(30px);
+      transition: transform 0.6s ease;
+    }
+
+    .about-image:hover::before {
+      transform: translateZ(50px) scale(1.02);
+      border-color: var(--gold);
     }
 
     .about-content {
       padding: 0;
+      transform-style: preserve-3d;
     }
 
     @media (min-width: 1024px) {
@@ -913,10 +985,18 @@
       margin-top: 2rem;
       padding-top: 2rem;
       border-top: 1px solid var(--border-gold);
+      transform-style: preserve-3d;
     }
 
     .stat {
       text-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+      cursor: pointer;
+    }
+
+    .stat:hover {
+      transform: translateZ(30px) scale(1.1);
     }
 
     @media (min-width: 768px) {
@@ -947,6 +1027,8 @@
       justify-content: center;
       overflow: hidden;
       background: var(--bg);
+      transform-style: preserve-3d;
+      perspective: 800px;
     }
 
     .tunnel-frames {
@@ -955,13 +1037,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 500px;
+      transform-style: preserve-3d;
     }
 
     .tunnel-frame {
       position: absolute;
       border: 1px solid var(--border-gold);
-      transition: transform 0.1s ease-out, opacity 0.3s ease;
+      transition: transform 0.2s ease-out, opacity 0.3s ease, border-color 0.3s ease;
+      transform-style: preserve-3d;
     }
 
     .tunnel-content {
@@ -969,6 +1052,8 @@
       z-index: 10;
       text-align: center;
       padding: 2rem;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
     }
 
     .tunnel-content h2 {
@@ -984,10 +1069,11 @@
       color: var(--text-muted);
     }
 
-    /* ========== PORTFOLIO SECTION ========== */
+    /* ========== PORTFOLIO SECTION - ENHANCED 3D ========== */
     .portfolio {
       padding: 4rem 0;
       background: var(--bg2);
+      perspective: 1000px;
     }
 
     @media (min-width: 768px) {
@@ -998,6 +1084,7 @@
       display: grid;
       gap: 1rem;
       grid-template-columns: 1fr;
+      transform-style: preserve-3d;
     }
 
     @media (min-width: 640px) {
@@ -1013,6 +1100,13 @@
       aspect-ratio: 4/5;
       overflow: hidden;
       cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .portfolio-item:hover {
+      z-index: 10;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     }
 
     .portfolio-item img {
@@ -1036,6 +1130,7 @@
       padding: 1.5rem;
       opacity: 0;
       transition: opacity 0.4s ease;
+      transform: translateZ(20px);
     }
 
     .portfolio-item:hover .overlay {
@@ -1054,10 +1149,11 @@
       font-size: 1.25rem;
     }
 
-    /* ========== MANIFESTO SECTION ========== */
+    /* ========== MANIFESTO SECTION - ENHANCED 3D ========== */
     .manifesto {
       padding: 4rem 0;
       text-align: center;
+      perspective: 800px;
     }
 
     @media (min-width: 768px) {
@@ -1067,6 +1163,8 @@
     .manifesto-content {
       max-width: 800px;
       margin: 0 auto;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
     }
 
     .manifesto h2 {
@@ -1083,12 +1181,19 @@
     .manifesto-text span {
       color: var(--gold);
       font-style: italic;
+      display: inline-block;
+      transition: transform 0.4s ease;
     }
 
-    /* ========== SERVICES SECTION ========== */
+    .manifesto-text span:hover {
+      transform: translateZ(30px) scale(1.1);
+    }
+
+    /* ========== SERVICES SECTION - ENHANCED 3D ========== */
     .services {
       padding: 4rem 0;
       background: var(--bg2);
+      perspective: 1000px;
     }
 
     @media (min-width: 768px) {
@@ -1099,6 +1204,7 @@
       display: grid;
       gap: 1.5rem;
       grid-template-columns: 1fr;
+      transform-style: preserve-3d;
     }
 
     @media (min-width: 640px) {
@@ -1113,12 +1219,15 @@
       padding: 2rem;
       border: 1px solid var(--border-gold);
       background: var(--bg);
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      transform-style: preserve-3d;
+      cursor: pointer;
     }
 
     .service-card:hover {
       border-color: var(--gold);
-      transform: translateY(-5px);
+      transform: translateY(-10px) translateZ(30px) rotateX(5deg);
+      box-shadow: 0 20px 40px rgba(201, 162, 39, 0.15);
     }
 
     .service-icon {
@@ -1130,17 +1239,32 @@
       border: 1px solid var(--border-gold);
       margin-bottom: 1.5rem;
       font-size: 1.25rem;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover .service-icon {
+      transform: translateZ(20px);
     }
 
     .service-card h3 {
       font-size: 1.25rem;
       margin-bottom: 1rem;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover h3 {
+      transform: translateZ(15px);
     }
 
     .service-card p {
       font-size: 0.9rem;
       color: var(--text-muted);
       line-height: 1.7;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover p {
+      transform: translateZ(10px);
     }
 
     /* ========== CONTACT SECTION ========== */
@@ -1185,6 +1309,12 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-item:hover {
+      transform: translateX(10px) translateZ(10px);
     }
 
     .contact-item .icon {
@@ -1231,13 +1361,15 @@
       color: var(--text);
       font-family: var(--font-serif);
       font-size: 1rem;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
       outline: none;
       border-color: var(--gold);
+      transform: translateZ(10px);
+      box-shadow: 0 10px 20px rgba(201, 162, 39, 0.1);
     }
 
     .form-group textarea {
@@ -1298,11 +1430,13 @@
       text-transform: uppercase;
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
     }
 
     .footer-links a:hover {
       color: var(--gold);
+      transform: translateZ(10px);
     }
 
     .footer-copyright {
@@ -1367,13 +1501,13 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="hero-bg">
-      <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1920&q=80" alt="Hero Background">
+      <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1920&q=80" alt="Hero Background" id="heroImage">
       <div class="hero-overlay"></div>
     </div>
-    <div class="hero-content">
-      <p class="hero-subtitle">Professional Photography Studio</p>
+    <div class="hero-content" id="heroContent">
+      <p class="hero-subtitle" id="heroSubtitle">Professional Photography Studio</p>
       <h1 class="hero-title">
         <span>CAPTURING</span>
         <span class="outline">TIMELESS</span>
@@ -1398,13 +1532,13 @@
   <!-- Gallery Section -->
   <section class="gallery section" id="gallery">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" id="galleryHeader">
         <p class="section-label">Featured Work</p>
         <h2 class="section-title">OUR GALLERY</h2>
       </div>
 
       <!-- Mobile Horizontal Scroll Gallery -->
-      <div class="gallery-scroll">
+      <div class="gallery-scroll" id="galleryScroll">
         <div class="gallery-scroll-item">
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Portrait">
           <div class="overlay">
@@ -1437,7 +1571,7 @@
 
       <!-- Desktop 3D Gallery -->
       <div class="gallery-3d">
-        <div class="gallery-track">
+        <div class="gallery-track" id="galleryTrack">
           <div class="gallery-card">
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Portrait">
             <div class="info">
@@ -1474,7 +1608,7 @@
 
   <!-- Reel Section -->
   <section class="reel">
-    <div class="reel-track">
+    <div class="reel-track" id="reelTrack">
       <div class="reel-item"><span>PORTRAITS</span><div class="dot"></div></div>
       <div class="reel-item"><span>WEDDINGS</span><div class="dot"></div></div>
       <div class="reel-item"><span>FASHION</span><div class="dot"></div></div>
@@ -1492,7 +1626,7 @@
   <section class="about section" id="about">
     <div class="container">
       <div class="about-grid">
-        <div class="about-image">
+        <div class="about-image" id="aboutImage">
           <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80" alt="Photographer">
         </div>
         <div class="about-content">
@@ -1524,9 +1658,9 @@
   </section>
 
   <!-- Tunnel Section -->
-  <section class="tunnel">
+  <section class="tunnel" id="tunnel">
     <div class="tunnel-frames" id="tunnelFrames"></div>
-    <div class="tunnel-content">
+    <div class="tunnel-content" id="tunnelContent">
       <h2>INFINITE <span class="text-gold">VISION</span></h2>
       <p>Move your cursor to explore the depth</p>
     </div>
@@ -1539,7 +1673,7 @@
         <p class="section-label">Recent Work</p>
         <h2 class="section-title">PORTFOLIO</h2>
       </div>
-      <div class="portfolio-grid">
+      <div class="portfolio-grid" id="portfolioGrid">
         <div class="portfolio-item">
           <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="Portrait 1">
           <div class="overlay">
@@ -1587,9 +1721,9 @@
   </section>
 
   <!-- Manifesto Section -->
-  <section class="manifesto section">
+  <section class="manifesto section" id="manifesto">
     <div class="container">
-      <div class="manifesto-content">
+      <div class="manifesto-content" id="manifestoContent">
         <p class="section-label">Our Philosophy</p>
         <h2>THE MANIFESTO</h2>
         <p class="manifesto-text">
@@ -1654,7 +1788,7 @@
             </div>
           </div>
         </div>
-        <form class="contact-form">
+        <form class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Your Name</label>
@@ -1708,6 +1842,48 @@
       mouseY = e.clientY;
       cursorDot.style.left = mouseX + 'px';
       cursorDot.style.top = mouseY + 'px';
+      
+      // Enhanced 3D: Mouse parallax on hero
+      const heroContent = document.getElementById('heroContent');
+      const heroImage = document.getElementById('heroImage');
+      
+      if (heroContent && heroImage && window.scrollY < window.innerHeight) {
+        const moveX = (mouseX - window.innerWidth / 2) / window.innerWidth * 20;
+        const moveY = (mouseY - window.innerHeight / 2) / window.innerHeight * 20;
+        
+        heroContent.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        heroImage.style.transform = `scale(1.1) translate(${-moveX * 0.5}px, ${-moveY * 0.5}px)`;
+      }
+      
+      // Enhanced 3D: Portfolio cards tilt toward mouse
+      document.querySelectorAll('.portfolio-item').forEach(item => {
+        if (item.matches(':hover')) {
+          const rect = item.getBoundingClientRect();
+          const cardX = (e.clientX - rect.left) / rect.width - 0.5;
+          const cardY = (e.clientY - rect.top) / rect.height - 0.5;
+          item.style.transform = `
+            rotateY(${cardX * 15}deg) 
+            rotateX(${-cardY * 15}deg) 
+            translateZ(30px) 
+            scale(1.05)
+          `;
+        }
+      });
+      
+      // Enhanced 3D: Service cards follow mouse
+      document.querySelectorAll('.service-card').forEach(card => {
+        if (card.matches(':hover')) {
+          const rect = card.getBoundingClientRect();
+          const cardX = (e.clientX - rect.left) / rect.width - 0.5;
+          const cardY = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `
+            translateY(-10px) 
+            translateZ(30px) 
+            rotateX(${-cardY * 10}deg) 
+            rotateY(${cardX * 10}deg)
+          `;
+        }
+      });
     });
 
     function animateRing() {
@@ -1720,10 +1896,19 @@
     animateRing();
 
     // Cursor hover effect
-    const hoverElements = document.querySelectorAll('a, button, .clickable, .gallery-card, .portfolio-item, .service-card');
+    const hoverElements = document.querySelectorAll('a, button, .clickable, .gallery-card, .portfolio-item, .service-card, .stat, .contact-item');
     hoverElements.forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-hover');
+        // Reset transforms
+        if (el.classList.contains('portfolio-item')) {
+          el.style.transform = '';
+        }
+        if (el.classList.contains('service-card')) {
+          el.style.transform = '';
+        }
+      });
     });
 
     // ========== MOBILE SIDEBAR ==========
@@ -1761,15 +1946,109 @@
 
     // ========== NAV SCROLL EFFECT ==========
     const nav = document.querySelector('.nav');
+    
+    // ========== ENHANCED 3D SCROLL EFFECTS ==========
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
+      const scrollY = window.scrollY;
+      
+      // Nav scroll
+      if (scrollY > 100) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
       }
+      
+      // Hero parallax
+      const heroImage = document.getElementById('heroImage');
+      const heroContent = document.getElementById('heroContent');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+      
+      if (heroImage) {
+        heroImage.style.transform = `scale(1.1) translateY(${scrollY * 0.5}px)`;
+      }
+      
+      if (heroContent) {
+        const opacity = 1 - (scrollY / 600);
+        heroContent.style.opacity = Math.max(0, opacity);
+        heroContent.style.transform = `translateY(${scrollY * 0.3}px)`;
+      }
+      
+      if (heroSubtitle) {
+        heroSubtitle.style.transform = `translateZ(${Math.sin(scrollY * 0.01) * 20}px)`;
+      }
+      
+      // Hero title spans float at different depths
+      const heroSpans = document.querySelectorAll('.hero-title span');
+      heroSpans.forEach((span, i) => {
+        const depth = (i + 1) * 15;
+        span.style.transform = `translateZ(${Math.sin(scrollY * 0.005 + i) * depth}px)`;
+      });
+      
+      // Section headers 3D reveal
+      document.querySelectorAll('.section-header').forEach(header => {
+        const rect = header.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = 1 - (rect.top / window.innerHeight);
+          header.style.transform = `translateZ(${progress * 20}px)`;
+          header.style.opacity = Math.min(progress + 0.3, 1);
+        }
+      });
+      
+      // Manifesto content float
+      const manifestoContent = document.getElementById('manifestoContent');
+      if (manifestoContent) {
+        const rect = manifestoContent.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          manifestoContent.style.transform = `translateZ(${Math.sin(progress * Math.PI) * 30}px)`;
+        }
+      }
+      
+      // Stats pop effect
+      document.querySelectorAll('.stat').forEach((stat, i) => {
+        const rect = stat.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const delay = i * 0.1;
+          stat.style.transitionDelay = `${delay}s`;
+          stat.style.transform = `translateZ(20px)`;
+          stat.style.opacity = '1';
+        }
+      });
+
+      // Portfolio items staggered 3D reveal
+      document.querySelectorAll('.portfolio-item').forEach((item, i) => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0 && !item.matches(':hover')) {
+          const delay = i * 0.08;
+          item.style.transitionDelay = `${delay}s`;
+          item.style.transform = `translateZ(10px)`;
+          item.style.opacity = '1';
+        }
+      });
+
+      // Service cards staggered reveal
+      document.querySelectorAll('.service-card').forEach((card, i) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0 && !card.matches(':hover')) {
+          const delay = i * 0.1;
+          card.style.transitionDelay = `${delay}s`;
+          card.style.transform = `translateZ(15px)`;
+          card.style.opacity = '1';
+        }
+      });
+      
+      // About image parallax
+      const aboutImage = document.getElementById('aboutImage');
+      if (aboutImage) {
+        const rect = aboutImage.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          aboutImage.style.transform = `rotateY(${(progress - 0.5) * 10}deg) translateY(${(progress - 0.5) * 30}px)`;
+        }
+      }
     });
 
-    // ========== TUNNEL EFFECT ==========
+    // ========== TUNNEL EFFECT (ENHANCED) ==========
     const tunnelFrames = document.getElementById('tunnelFrames');
     const frameCount = 15;
 
@@ -1783,8 +2062,9 @@
       tunnelFrames.appendChild(frame);
     }
 
-    const tunnel = document.querySelector('.tunnel');
+    const tunnel = document.getElementById('tunnel');
     const frames = document.querySelectorAll('.tunnel-frame');
+    const tunnelContent = document.getElementById('tunnelContent');
 
     tunnel.addEventListener('mousemove', (e) => {
       const rect = tunnel.getBoundingClientRect();
@@ -1795,16 +2075,47 @@
 
       frames.forEach((frame, i) => {
         const depth = (i + 1) / frameCount;
-        const offsetX = mouseX * depth * 0.1;
-        const offsetY = mouseY * depth * 0.1;
-        const rotation = (mouseX / centerX) * depth * 5;
-        frame.style.transform = `translate(${offsetX}px, ${offsetY}px) rotateY(${rotation}deg) rotateX(${-mouseY / centerY * depth * 5}deg)`;
+        const offsetX = mouseX * depth * 0.15;
+        const offsetY = mouseY * depth * 0.15;
+        const rotation = (mouseX / centerX) * depth * 8;
+        const rotationX = -(mouseY / centerY) * depth * 8;
+        frame.style.transform = `translate(${offsetX}px, ${offsetY}px) rotateY(${rotation}deg) rotateX(${rotationX}deg)`;
+        
+        // Enhanced: frames light up near center
+        const distance = Math.sqrt(mouseX * mouseX + mouseY * mouseY);
+        const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY);
+        const glowFactor = 1 - (distance / maxDistance);
+        frame.style.borderColor = `rgba(201, 162, 39, ${0.3 + glowFactor * 0.5})`;
+      });
+      
+      // Move tunnel content
+      if (tunnelContent) {
+        tunnelContent.style.transform = `translate(${mouseX * 0.08}px, ${mouseY * 0.08}px) translateZ(20px)`;
+      }
+    });
+
+    // Touch support for tunnel
+    tunnel.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const rect = tunnel.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const touchX = touch.clientX - rect.left - centerX;
+      const touchY = touch.clientY - rect.top - centerY;
+
+      frames.forEach((frame, i) => {
+        const depth = (i + 1) / frameCount;
+        const offsetX = touchX * depth * 0.1;
+        const offsetY = touchY * depth * 0.1;
+        const rotation = (touchX / centerX) * depth * 5;
+        frame.style.transform = `translate(${offsetX}px, ${offsetY}px) rotateY(${rotation}deg) rotateX(${-touchY / centerY * depth * 5}deg)`;
       });
     });
 
     // ========== 3D GALLERY ==========
     let currentRotation = 0;
-    const galleryTrack = document.querySelector('.gallery-track');
+    const galleryTrack = document.getElementById('galleryTrack');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
 
@@ -1820,13 +2131,37 @@
       });
     }
 
+    // ========== MOBILE GALLERY 3D SCROLL EFFECT ==========
+    const galleryScroll = document.getElementById('galleryScroll');
+    if (galleryScroll) {
+      galleryScroll.addEventListener('scroll', () => {
+        const items = galleryScroll.querySelectorAll('.gallery-scroll-item');
+        const containerWidth = galleryScroll.offsetWidth;
+        
+        items.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          const itemCenter = rect.left + rect.width / 2;
+          const screenCenter = window.innerWidth / 2;
+          const distance = Math.abs(itemCenter - screenCenter);
+          const maxDistance = window.innerWidth;
+          
+          const scale = 1 - (distance / maxDistance) * 0.1;
+          const rotateY = (itemCenter - screenCenter) / screenCenter * 10;
+          
+          item.style.transform = `scale(${Math.max(0.9, scale)}) rotateY(${rotateY}deg)`;
+        });
+      });
+    }
+
     // ========== FORM SUBMISSION ==========
-    const contactForm = document.querySelector('.contact-form');
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thank you for your message! We will get back to you soon.');
-      contactForm.reset();
-    });
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        contactForm.reset();
+      });
+    }
 
     // ========== SMOOTH SCROLL ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1838,6 +2173,9 @@
         }
       });
     });
+
+    // ========== INITIAL LOAD TRIGGER ==========
+    window.dispatchEvent(new Event('scroll'));
   </script>
 </body>
 </html>
